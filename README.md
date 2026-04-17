@@ -1,6 +1,6 @@
 # Overwatch: Synthetic Adverse-Condition Data for Drone Perception
 
-Overwatch is a synthetic data generation pipeline that domain-shifts aerial drone footage into adverse visual conditions — rain, fog, thermal, fire/night — using [NVIDIA Cosmos Transfer2.5](https://github.com/nvidia-cosmos/cosmos-transfer2.5). The outputs are MOT17-compatible video datasets for training drone-based perception models on conditions underrepresented in real-world collections.
+Overwatch is a synthetic data generation pipeline that domain-shifts aerial drone footage into adverse visual conditions - rain, fog, thermal, fire/night - using [NVIDIA Cosmos Transfer2.5](https://github.com/nvidia-cosmos/cosmos-transfer2.5). The outputs are MOT17-compatible video datasets for training drone-based perception models on conditions underrepresented in real-world collections.
 
 ---
 
@@ -16,7 +16,7 @@ Overwatch is a synthetic data generation pipeline that domain-shifts aerial dron
 | **Guidance** | CFG = 5 |
 | **Inference steps** | 35 |
 | **GPU** | NVIDIA A100-SXM4 80GB (65.4 GB VRAM required) |
-| **Inference time** | ~7–8 min / clip on A100-80GB |
+| **Inference time** | ~7-8 min / clip on A100-80GB |
 
 ---
 
@@ -58,11 +58,11 @@ Cosmos-Transfer2.5-2B official inference times (single GPU, segmentation-control
 
 > Transfer2.5-2B is **3.5× smaller** than Cosmos-Transfer1 while delivering higher structural fidelity and robust long-horizon generation ([Cosmos paper](https://arxiv.org/abs/2511.00062)).
 
-**Overwatch quality metrics** (CLIP / LPIPS / SSIM across completed clips — run `quality_metrics.py` to reproduce):
+**Overwatch quality metrics** (CLIP / LPIPS / SSIM across completed clips - run `quality_metrics.py` to reproduce):
 
 | Metric | Meaning | Target |
 |--------|---------|--------|
-| CLIP score | Prompt–visual alignment | Higher is better |
+| CLIP score | Prompt-visual alignment | Higher is better |
 | LPIPS | Perceptual distance from seed | Higher = more domain shift applied |
 | SSIM | Structural similarity to seed | Higher = structure better preserved |
 
@@ -113,7 +113,7 @@ python3 scripts/validate_inputs.py
 rsync -avz seed_videos_prepped/ configs/ scripts/ \
     root@<host>:/workspace/cosmos_overwatch/
 
-# On the instance — install everything (~10–15 min, one-time)
+# On the instance - install everything (~10-15 min, one-time)
 export HF_TOKEN=hf_xxx    # Must have accepted NVIDIA Cosmos-Transfer2.5 license
 bash scripts/setup_cloud.sh
 ```
@@ -126,7 +126,7 @@ export COSMOS_DIR=/workspace/cosmos-transfer2.5
 # Smoke test (single clip, ~8 min)
 python3 scripts/inference_runner.py --spec-name uav0000288_00001_v_heavy_rain
 
-# Full batch (48 clips, ~6–7 hr on A100-80GB)
+# Full batch (48 clips, ~6-7 hr on A100-80GB)
 python3 scripts/inference_runner.py
 
 # Resume after interruption
@@ -139,7 +139,7 @@ python3 scripts/inference_runner.py --resume
 # Post-inference QC (black frames, static video, file corruption)
 python3 scripts/validate_outputs.py --output-dir outputs
 
-# Quality metrics (CLIP / LPIPS / SSIM) — run on Mac after rsync pull
+# Quality metrics (CLIP / LPIPS / SSIM) - run on Mac after rsync pull
 pip install torch torchvision transformers lpips scikit-image opencv-python pillow
 python3 scripts/quality_metrics.py
 ```

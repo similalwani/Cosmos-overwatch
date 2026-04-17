@@ -72,7 +72,7 @@ def prep_visdrone_videos():
         print(f"  {status}  {name}.mp4  [{size_mb:.1f} MB]")
 
     total_mb = sum(results)
-    print(f"\n{len(results)}/{len(SEQ_NAMES)} VisDrone videos ready — {total_mb:.1f} MB total")
+    print(f"\n{len(results)}/{len(SEQ_NAMES)} VisDrone videos ready - {total_mb:.1f} MB total")
 
 
 def propagate_visdrone_annotations():
@@ -165,7 +165,7 @@ def prep_fire_videos():
         print(f"  {status}  {name}.mp4  [{size_mb:.1f} MB]")
 
     total_mb = sum(results)
-    print(f"\n{len(results)}/{len(FIRE_NAMES)} fire videos ready — {total_mb:.1f} MB total")
+    print(f"\n{len(results)}/{len(FIRE_NAMES)} fire videos ready - {total_mb:.1f} MB total")
 
 
 def annotate_fire_videos():

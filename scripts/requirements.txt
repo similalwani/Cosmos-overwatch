@@ -1,6 +1,6 @@
 # Python deps for the cosmos_overwatch validation + orchestration scripts.
 # NOTE: Cosmos Transfer2.5 itself is installed separately via `uv sync` in its
-# own repo — do NOT try to pip-install torch/flash-attn here.
+# own repo - do NOT try to pip-install torch/flash-attn here.
 numpy>=1.24
 opencv-python>=4.8
 ultralytics>=8.0  # only needed if re-running dataset_prep.py fire annotation

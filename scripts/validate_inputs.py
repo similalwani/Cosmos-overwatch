@@ -186,7 +186,7 @@ def main():
 
     print("\n" + "="*60)
     if all(results.values()):
-        print("✓  ALL CHECKS PASSED — READY FOR INFERENCE")
+        print("✓  ALL CHECKS PASSED - READY FOR INFERENCE")
     else:
         print("⚠  ISSUES DETECTED")
         failed = [k for k, v in results.items() if not v]

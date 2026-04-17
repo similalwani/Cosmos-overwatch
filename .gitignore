@@ -1,13 +1,13 @@
-# VisDrone raw dataset (not redistributable — see data/sources.md)
+# VisDrone raw dataset (not redistributable - see data/sources.md)
 VisDrone2019-VID-train/
 
 # Raw fire footage source files
 fire_raw/
 
-# Seed videos — committed directly (all < 10MB)
+# Seed videos - committed directly (all < 10MB)
 # seed_videos_prepped/*.mp4
 
-# Generated outputs — keep main MP4s, exclude logs/configs/temp files
+# Generated outputs - keep main MP4s, exclude logs/configs/temp files
 outputs/**/*.log
 outputs/**/*.yaml
 outputs/**/*.txt

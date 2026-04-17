@@ -18,7 +18,7 @@ THIS_REPO="${THIS_REPO:-$WORKSPACE/cosmos_overwatch}"
 CUDA_EXTRA="${CUDA_EXTRA:-cu128}"  # cu128 | cu130
 
 echo "=========================================="
-echo "Cosmos Transfer2.5 — Cloud setup"
+echo "Cosmos Transfer2.5 - Cloud setup"
 echo "=========================================="
 echo "Workspace:   $WORKSPACE"
 echo "Cosmos dir:  $COSMOS_DIR"
@@ -27,7 +27,7 @@ echo "CUDA extra:  $CUDA_EXTRA"
 echo ""
 
 if [ -z "${HF_TOKEN:-}" ]; then
-  echo "WARNING: HF_TOKEN not set — you'll need to 'hf auth login' interactively"
+  echo "WARNING: HF_TOKEN not set - you'll need to 'hf auth login' interactively"
 fi
 
 echo "--- Installing system deps ---"

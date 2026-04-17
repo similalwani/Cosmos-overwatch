@@ -5,7 +5,7 @@ Loads each spec, resolves paths, writes a Cosmos-compatible JSON to a temp
 file, then invokes the Cosmos Transfer2.5 CLI. Logs timings and supports
 checkpoint-based resume.
 
-Usage (on Lambda, after setup_lambda.sh):
+Usage (on cloud GPU, after setup_cloud.sh):
   python3 inference_runner.py                     # run all specs
   python3 inference_runner.py --spec-name <name>  # single spec
   python3 inference_runner.py --resume            # resume from checkpoint
@@ -31,7 +31,6 @@ OUTPUTS_DIR = BASE / "outputs"
 LOG_FILE = OUTPUTS_DIR / "inference_log.txt"
 CHECKPOINT_FILE = OUTPUTS_DIR / ".inference_checkpoint"
 
-# Location of the cloned cosmos-transfer2.5 repo on Lambda
 COSMOS_DIR = Path(os.environ.get("COSMOS_DIR", "/workspace/cosmos-transfer2.5"))
 COSMOS_INFERENCE = COSMOS_DIR / "examples" / "inference.py"
 
@@ -74,7 +73,7 @@ def run_cosmos_inference(resolved_spec, output_dir, dry_run=False):
     if not dry_run and not COSMOS_INFERENCE.exists():
         raise FileNotFoundError(
             f"Cosmos inference script not found at {COSMOS_INFERENCE}. "
-            f"Set $COSMOS_DIR or re-run setup_lambda.sh."
+            f"Set $COSMOS_DIR or re-run setup_cloud.sh."
         )
 
     # Cosmos CLI accepts a subset of fields; output_dir is a CLI flag, not JSON.
@@ -179,7 +178,7 @@ def main():
             idx = list(specs.keys()).index(last)
             spec_names = list(specs.keys())[idx + 1:]
             if not spec_names:
-                print("No remaining specs — all done")
+                print("No remaining specs - all done")
                 return 0
             print(f"Resuming after {last} ({len(spec_names)} remaining)")
         else:

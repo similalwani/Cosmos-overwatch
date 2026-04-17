@@ -28,7 +28,7 @@ HISTOGRAM_SPIKE = 2.0    # Variance spike indicates dissolution
 
 
 def get_frame_entropy(frame_gray):
-    """Normalized Shannon entropy of a grayscale frame (0–1)."""
+    """Normalized Shannon entropy of a grayscale frame (0-1)."""
     hist, _ = np.histogram(frame_gray, bins=256, range=(0, 256))
     hist = hist / hist.sum()
     hist = hist[hist > 0]
