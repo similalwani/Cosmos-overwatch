@@ -1,0 +1,12 @@
+{
+  "prompt": "An aerial drone view during heavy rainfall. Dense rain streaks fall diagonally across the frame. Water accumulates on paved surfaces, creating reflective puddles that mirror ambient light. The sky is uniformly dark grey with thick cloud cover. Visibility is reduced to approximately 200 meters. All surfaces appear wet with specular highlights from diffused overcast lighting. The camera is mounted on a drone looking downward at approximately 45 degrees, capturing the scene with natural motion and slight vibration.",
+  "video_path": "seed_videos_prepped/uav0000248_00001_v.mp4",
+  "output_dir": "outputs/uav0000248_00001_v/heavy_rain",
+  "guidance": 3,
+  "edge": {
+    "control_weight": 0.5
+  },
+  "depth": {
+    "control_weight": 0.5
+  }
+}

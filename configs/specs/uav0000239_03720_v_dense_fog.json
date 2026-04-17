@@ -1,0 +1,12 @@
+{
+  "prompt": "An aerial drone view in dense fog conditions. Atmospheric scattering reduces visibility to under 100 meters. Objects in the foreground are clearly visible but fade progressively into white-grey haze with distance. Lighting is flat and diffused with no directional shadows. Surfaces appear desaturated. Fine water droplets suspended in air create a soft volumetric effect. The camera captures the scene from above, looking down at the terrain through the fog layer.",
+  "video_path": "seed_videos_prepped/uav0000239_03720_v.mp4",
+  "output_dir": "outputs/uav0000239_03720_v/dense_fog",
+  "guidance": 3,
+  "edge": {
+    "control_weight": 0.5
+  },
+  "depth": {
+    "control_weight": 0.5
+  }
+}

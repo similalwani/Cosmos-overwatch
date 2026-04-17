@@ -1,0 +1,12 @@
+{
+  "prompt": "An aerial thermal infrared view of a fire scene. The fire zone appears as brilliant white and yellow heat blooms, extremely intense and saturated. Smoke appears as grey haze with cooler blue tones. Surrounding terrain shows blue-grey. Objects with absorbed heat show warm signatures. The thermal palette emphasizes the extreme heat differential. Hottest zones (active fire) are pure white, cooling outward through yellow, orange, red, and then to cool blues and greys.",
+  "video_path": "seed_videos_prepped/forest_fire_dense_smoke.mp4",
+  "output_dir": "outputs/forest_fire_dense_smoke/thermal",
+  "guidance": 3,
+  "edge": {
+    "control_weight": 0.5
+  },
+  "depth": {
+    "control_weight": 0.5
+  }
+}

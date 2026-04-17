@@ -1,0 +1,12 @@
+{
+  "prompt": "An aerial drone view of a fire scene during heavy rainfall. Dense rain streaks fall through the scene. Water accumulates on surfaces. The fire's glow is diffused through rain, creating a hazy orange-reddish atmosphere. Smoke mixes with rain mist. Water reflections mirror the firelight. The contrast between warm fire light and cool wet surfaces creates an emergency atmosphere. Visibility is reduced by both rain and smoke.",
+  "video_path": "seed_videos_prepped/structure_fire_buildings.mp4",
+  "output_dir": "outputs/structure_fire_buildings/heavy_rain",
+  "guidance": 3,
+  "edge": {
+    "control_weight": 0.5
+  },
+  "depth": {
+    "control_weight": 0.5
+  }
+}

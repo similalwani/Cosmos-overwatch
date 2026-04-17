@@ -1,0 +1,12 @@
+{
+  "prompt": "An aerial drone view during golden hour, approximately 20 minutes before sunset. Warm amber and orange light arrives at a low angle, casting long shadows across the ground. The sky transitions from deep blue overhead to warm orange-pink near the horizon. Surfaces facing the sun have strong warm highlights while shadowed areas show cool blue tones. The contrast ratio is high. The drone camera captures the scene with rich cinematic color depth and natural lens flare.",
+  "video_path": "seed_videos_prepped/uav0000288_00001_v.mp4",
+  "output_dir": "outputs/uav0000288_00001_v/dusk_golden",
+  "guidance": 3,
+  "edge": {
+    "control_weight": 0.5
+  },
+  "depth": {
+    "control_weight": 0.5
+  }
+}

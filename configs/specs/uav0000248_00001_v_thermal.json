@@ -1,0 +1,12 @@
+{
+  "prompt": "An aerial thermal infrared view of the scene. Warm objects and people glow bright white and yellow against cooler blue-grey backgrounds. Heat signatures create distinct thermal blooms. Surfaces with different thermal properties show clear contrast: asphalt and roads appear cool grey, buildings show warm edges, vegetation appears cool. The palette is monochromatic with emphasis on intensity rather than color. Heat shimmer distorts air above warm surfaces. The overall tone is desaturated with a greenish-grey cast typical of LWIR approximation.",
+  "video_path": "seed_videos_prepped/uav0000248_00001_v.mp4",
+  "output_dir": "outputs/uav0000248_00001_v/thermal",
+  "guidance": 3,
+  "edge": {
+    "control_weight": 0.5
+  },
+  "depth": {
+    "control_weight": 0.5
+  }
+}

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Cosmos Output Review</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #111; color: #eee; font-family: monospace; padding: 20px; }
+  h1 { font-size: 18px; margin-bottom: 20px; color: #aaa; }
+  .seed-block { margin-bottom: 48px; border: 1px solid #333; border-radius: 6px; overflow: hidden; }
+  .seed-header { background: #1e1e1e; padding: 10px 16px; font-size: 14px; color: #7ec8e3; border-bottom: 1px solid #333; }
+  .video-row { display: flex; flex-wrap: wrap; gap: 0; }
+  .video-cell { flex: 1 1 220px; min-width: 200px; padding: 12px; border-right: 1px solid #222; }
+  .video-cell:last-child { border-right: none; }
+  .video-cell .label { font-size: 11px; color: #888; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .video-cell .condition { font-size: 13px; color: #e8c97a; margin-bottom: 8px; }
+  .video-cell video { width: 100%; border-radius: 4px; background: #000; display: block; pointer-events: auto; }
+  .video-cell video::-webkit-media-controls-download-button { display: none; }
+  .video-cell video::--webkit-media-controls-enclosure { overflow: hidden; }
+  .seed-label { color: #aaffaa; }
+  .missing { color: #555; font-size: 12px; padding: 20px 0; }
+  .filter-bar { margin-bottom: 20px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .filter-bar label { font-size: 12px; color: #888; margin-right: 4px; }
+  .filter-bar button {
+    background: #2a2a2a; border: 1px solid #444; color: #ccc;
+    padding: 4px 12px; border-radius: 4px; cursor: pointer; font-size: 12px;
+  }
+  .filter-bar button.active { background: #7ec8e3; color: #111; border-color: #7ec8e3; }
+  .seed-block.hidden { display: none; }
+</style>
+</head>
+<body>
+<h1>Cosmos Transfer2.5 — Output Review</h1>
+
+<div class="filter-bar">
+  <label>Filter by seed:</label>
+  <button class="active" onclick="filterSeed('all', this)">All</button>
+  <button onclick="filterSeed('uav', this)">UAV only</button>
+  <button onclick="filterSeed('fire', this)">Fire only</button>
+</div>
+
+<div id="blocks">
+
+  <!-- farm_fire_south_africa -->
+  <div class="seed-block" data-type="fire">
+    <div class="seed-header">farm_fire_south_africa</div>
+    <div class="video-row">
+      <div class="video-cell">
+        <div class="label seed-label">Seed (original)</div>
+        <video controls loop muted controlslist="nodownload" oncontextmenu="return false" src="seed_videos_prepped/farm_fire_south_africa.mp4"></video>
+      </div>
+      <div class="video-cell">
+        <div class="condition">heavy_rain</div>
+        <video controls loop muted controlslist="nodownload" oncontextmenu="return false" src="outputs/farm_fire_south_africa/heavy_rain/farm_fire_south_africa.mp4"></video>
+      </div>
+      <div class="video-cell">
+        <div class="condition">night_fire</div>
+        <video controls loop muted controlslist="nodownload" oncontextmenu="return false" src="outputs/farm_fire_south_africa/night_fire/farm_fire_south_africa.mp4"></video>
+      </div>
+      <div class="video-cell">
+        <div class="condition">thermal</div>
+        <video controls loop muted controlslist="nodownload" oncontextmenu="return false" src="outputs/farm_fire_south_africa/thermal/farm_fire_south_africa.mp4"></video>
+      </div>
+    </div>
+  </div>
+
+  <!-- forest_fire_dense_smoke -->
+  <div class="seed-block" data-type="fire">
+    <div class="seed-header">forest_fire_dense_smoke</div>
+    <div class="video-row">
+      <div class="video-cell">
+        <div class="label seed-label">Seed (original)</div>
+        <video controls loop muted controlslist="nodownload" oncontextmenu="return false" src="seed_videos_prepped/forest_fire_dense_smoke.mp4"></video>
+      </div>
+      <div class="video-cell">
+        <div class="condition">heavy_rain</div>
+        <video controls loop muted controlslist="nodownload" oncontextmenu="return false" src="outputs/forest_fire_dense_smoke/heavy_rain/forest_fire_dense_smoke.mp4"></video>
+      </div>
+      <div class="video-cell">
+        <div class="condition">night_fire</div>
+        <video controls loop muted controlslist="nodownload" oncontextmenu="return false" src="outputs/forest_fire_dense_smoke/night_fire/forest_fire_dense_smoke.mp4"></video>
+      </div>
+      <div class="video-cell">
+        <div class="condition">thermal</div>
+        <video controls loop muted controlslist="nodownload" oncontextmenu="return false" src="outputs/forest_fire_dense_smoke/thermal/forest_fire_dense_smoke.mp4"></video>
+      </div>
+    </div>
+  </div>
+
+  <!-- structure_fire_buildings -->
+  <div class="seed-block" data-type="fire">
+    <div class="seed-header">structure_fire_buildings</div>
+    <div class="video-row">
+      <div class="video-cell">
+        <div class="label seed-label">Seed (original)</div>
+        <video controls loop muted controlslist="nodownload" oncontextmenu="return false" src="seed_videos_prepped/structure_fire_buildings.mp4"></video>
+      </div>
+      <div class="video-cell">
+        <div class="condition">heavy_rain</div>
+        <video controls loop muted controlslist="nodownload" oncontextmenu="return false" src="outputs/structure_fire_buildings/heavy_rain/structure_fire_buildings.mp4"></video>
+      </div>
+      <div class="video-cell">
+        <div class="condition">night_fire</div>
+        <video controls loop muted controlslist="nodownload" oncontextmenu="return false" src="outputs/structure_fire_buildings/night_fire/structure_fire_buildings.mp4"></video>
+      </div>
+      <div class="video-cell">
+        <div class="condition">thermal</div>
+        <video controls loop muted controlslist="nodownload" oncontextmenu="return false" src="outputs/structure_fire_buildings/thermal/structure_fire_buildings.mp4"></video>
+      </div>
+    </div>
+  </div>
+
+  <!-- uav0000239_03720_v -->
+  <div class="seed-block" data-type="uav">
+    <div class="seed-header">uav0000239_03720_v</div>
+    <div class="video-row">
+      <div class="video-cell">
+        <div class="label seed-label">Seed (original)</div>
+        <video controls loop muted controlslist="nodownload" oncontextmenu="return false" src="seed_videos_prepped/uav0000239_03720_v.mp4"></video>
+      </div>
+      <div class="video-cell">
+        <div class="condition">dense_fog</div>
+        <video controls loop muted controlslist="nodownload" oncontextmenu="return false" src="outputs/uav0000239_03720_v/dense_fog/uav0000239_03720_v.mp4"></video>
+      </div>
+      <div class="video-cell">
+        <div class="condition">dusk_golden</div>
+        <video controls loop muted controlslist="nodownload" oncontextmenu="return false" src="outputs/uav0000239_03720_v/dusk_golden/uav0000239_03720_v.mp4"></video>
+      </div>
+      <div class="video-cell">
+        <div class="condition">heavy_rain</div>
+        <video controls loop muted controlslist="nodownload" oncontextmenu="return false" src="outputs/uav0000239_03720_v/heavy_rain/uav0000239_03720_v.mp4"></video>
+      </div>
+      <div class="video-cell">
+        <div class="condition">thermal</div>
+        <video controls loop muted controlslist="nodownload" oncontextmenu="return false" src="outputs/uav0000239_03720_v/thermal/uav0000239_03720_v.mp4"></video>
+      </div>
+    </div>
+  </div>
+
+  <!-- uav0000244_01440_v -->
+  <div class="seed-block" data-type="uav">
+    <div class="seed-header">uav0000244_01440_v</div>
+    <div class="video-row">
+      <div class="video-cell">
+        <div class="label seed-label">Seed (original)</div>
+        <video controls loop muted controlslist="nodownload" oncontextmenu="return false" src="seed_videos_prepped/uav0000244_01440_v.mp4"></video>
+      </div>
+      <div class="video-cell">
+        <div class="condition">dense_fog</div>
+        <video controls loop muted controlslist="nodownload" oncontextmenu="return false" src="outputs/uav0000244_01440_v/dense_fog/uav0000244_01440_v.mp4"></video>
+      </div>
+      <div class="video-cell">
+        <div class="condition">dusk_golden</div>
+        <video controls loop muted controlslist="nodownload" oncontextmenu="return false" src="outputs/uav0000244_01440_v/dusk_golden/uav0000244_01440_v.mp4"></video>
+      </div>
+      <div class="video-cell">
+        <div class="condition">heavy_rain</div>
+        <video controls loop muted controlslist="nodownload" oncontextmenu="return false" src="outputs/uav0000244_01440_v/heavy_rain/uav0000244_01440_v.mp4"></video>
+      </div>
+      <div class="video-cell">
+        <div class="condition">thermal</div>
+        <video controls loop muted controlslist="nodownload" oncontextmenu="return false" src="outputs/uav0000244_01440_v/thermal/uav0000244_01440_v.mp4"></video>
+      </div>
+    </div>
+  </div>
+
+  <!-- uav0000248_00001_v -->
+  <div class="seed-block" data-type="uav">
+    <div class="seed-header">uav0000248_00001_v</div>
+    <div class="video-row">
+      <div class="video-cell">
+        <div class="label seed-label">Seed (original)</div>
+        <video controls loop muted controlslist="nodownload" oncontextmenu="return false" src="seed_videos_prepped/uav0000248_00001_v.mp4"></video>
+      </div>
+      <div class="video-cell">
+        <div class="condition">dense_fog</div>
+        <video controls loop muted controlslist="nodownload" oncontextmenu="return false" src="outputs/uav0000248_00001_v/dense_fog/uav0000248_00001_v.mp4"></video>
+      </div>
+      <div class="video-cell">
+        <div class="condition">dusk_golden</div>
+        <video controls loop muted controlslist="nodownload" oncontextmenu="return false" src="outputs/uav0000248_00001_v/dusk_golden/uav0000248_00001_v.mp4"></video>
+      </div>
+      <div class="video-cell">
+        <div class="condition">heavy_rain</div>
+        <video controls loop muted controlslist="nodownload" oncontextmenu="return false" src="outputs/uav0000248_00001_v/heavy_rain/uav0000248_00001_v.mp4"></video>
+      </div>
+      <div class="video-cell">
+        <div class="condition">thermal</div>
+        <video controls loop muted controlslist="nodownload" oncontextmenu="return false" src="outputs/uav0000248_00001_v/thermal/uav0000248_00001_v.mp4"></video>
+      </div>
+    </div>
+  </div>
+
+  <!-- uav0000278_00001_v -->
+  <div class="seed-block" data-type="uav">
+    <div class="seed-header">uav0000278_00001_v</div>
+    <div class="video-row">
+      <div class="video-cell">
+        <div class="label seed-label">Seed (original)</div>
+        <video controls loop muted controlslist="nodownload" oncontextmenu="return false" src="seed_videos_prepped/uav0000278_00001_v.mp4"></video>
+      </div>
+      <div class="video-cell">
+        <div class="condition">dense_fog</div>
+        <video controls loop muted controlslist="nodownload" oncontextmenu="return false" src="outputs/uav0000278_00001_v/dense_fog/uav0000278_00001_v.mp4"></video>
+      </div>
+      <div class="video-cell">
+        <div class="condition">dusk_golden</div>
+        <video controls loop muted controlslist="nodownload" oncontextmenu="return false" src="outputs/uav0000278_00001_v/dusk_golden/uav0000278_00001_v.mp4"></video>
+      </div>
+      <div class="video-cell">
+        <div class="condition">heavy_rain</div>
+        <video controls loop muted controlslist="nodownload" oncontextmenu="return false" src="outputs/uav0000278_00001_v/heavy_rain/uav0000278_00001_v.mp4"></video>
+      </div>
+      <div class="video-cell">
+        <div class="condition">thermal</div>
+        <video controls loop muted controlslist="nodownload" oncontextmenu="return false" src="outputs/uav0000278_00001_v/thermal/uav0000278_00001_v.mp4"></video>
+      </div>
+    </div>
+  </div>
+
+  <!-- uav0000288_00001_v -->
+  <div class="seed-block" data-type="uav">
+    <div class="seed-header">uav0000288_00001_v</div>
+    <div class="video-row">
+      <div class="video-cell">
+        <div class="label seed-label">Seed (original)</div>
+        <video controls loop muted controlslist="nodownload" oncontextmenu="return false" src="seed_videos_prepped/uav0000288_00001_v.mp4"></video>
+      </div>
+      <div class="video-cell">
+        <div class="condition">dense_fog</div>
+        <video controls loop muted controlslist="nodownload" oncontextmenu="return false" src="outputs/uav0000288_00001_v/dense_fog/uav0000288_00001_v.mp4"></video>
+      </div>
+      <div class="video-cell">
+        <div class="condition">dusk_golden</div>
+        <video controls loop muted controlslist="nodownload" oncontextmenu="return false" src="outputs/uav0000288_00001_v/dusk_golden/uav0000288_00001_v.mp4"></video>
+      </div>
+      <div class="video-cell">
+        <div class="condition">heavy_rain</div>
+        <video controls loop muted controlslist="nodownload" oncontextmenu="return false" src="outputs/uav0000288_00001_v/heavy_rain/uav0000288_00001_v.mp4"></video>
+      </div>
+      <div class="video-cell">
+        <div class="condition">thermal</div>
+        <video controls loop muted controlslist="nodownload" oncontextmenu="return false" src="outputs/uav0000288_00001_v/thermal/uav0000288_00001_v.mp4"></video>
+      </div>
+    </div>
+  </div>
+
+  <!-- uav0000307_00000_v -->
+  <div class="seed-block" data-type="uav">
+    <div class="seed-header">uav0000307_00000_v</div>
+    <div class="video-row">
+      <div class="video-cell">
+        <div class="label seed-label">Seed (original)</div>
+        <video controls loop muted controlslist="nodownload" oncontextmenu="return false" src="seed_videos_prepped/uav0000307_00000_v.mp4"></video>
+      </div>
+      <div class="video-cell">
+        <div class="condition">dense_fog</div>
+        <video controls loop muted controlslist="nodownload" oncontextmenu="return false" src="outputs/uav0000307_00000_v/dense_fog/uav0000307_00000_v.mp4"></video>
+      </div>
+      <div class="video-cell">
+        <div class="condition">dusk_golden</div>
+        <video controls loop muted controlslist="nodownload" oncontextmenu="return false" src="outputs/uav0000307_00000_v/dusk_golden/uav0000307_00000_v.mp4"></video>
+      </div>
+      <div class="video-cell">
+        <div class="condition">heavy_rain</div>
+        <video controls loop muted controlslist="nodownload" oncontextmenu="return false" src="outputs/uav0000307_00000_v/heavy_rain/uav0000307_00000_v.mp4"></video>
+      </div>
+      <div class="video-cell">
+        <div class="condition">thermal — incomplete</div>
+        <div class="missing">not generated (partial run)</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function filterSeed(type, btn) {
+  document.querySelectorAll('.filter-bar button').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.seed-block').forEach(block => {
+    if (type === 'all') block.classList.remove('hidden');
+    else if (type === 'uav') block.classList.toggle('hidden', block.dataset.type !== 'uav');
+    else if (type === 'fire') block.classList.toggle('hidden', block.dataset.type !== 'fire');
+  });
+}
+</script>
+</body>
+</html>

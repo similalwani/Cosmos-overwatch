@@ -1,0 +1,52 @@
+# VisDrone raw dataset (not redistributable — see data/sources.md)
+VisDrone2019-VID-train/
+
+# Raw fire footage source files
+fire_raw/
+
+# Seed videos — committed directly (all < 10MB)
+# seed_videos_prepped/*.mp4
+
+# Generated outputs — keep main MP4s, exclude logs/configs/temp files
+outputs/**/*.log
+outputs/**/*.yaml
+outputs/**/*.txt
+outputs/**/tmp*.json
+outputs/**/config.yaml
+outputs/**/debug.log
+outputs/**/console.log
+
+# Inference checkpoints and temp files
+.inference_checkpoint
+configs/specs/tmp*.json
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+*.egg-info/
+
+# Model weights
+*.pt
+*.pth
+*.safetensors
+
+# macOS
+.DS_Store
+
+# Editors
+.vscode/
+.idea/
+
+# Claude Code local settings
+.claude/settings.local.json
+
+# SSH keys (never commit)
+cosmos
+cosmos.pub
+
+# Internal project notes
+claude.md
+CLAUDE.md

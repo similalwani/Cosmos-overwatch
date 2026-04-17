@@ -1,0 +1,12 @@
+{
+  "prompt": "An aerial drone view at night with an active fire as the primary light source. The scene is mostly dark with deep shadows. Fire glows warm orange and red, illuminating nearby surfaces with a flickering warm cast. Smoke is backlit by the flames, creating dark silhouettes against the glow. Ambient night sky shows faint stars or glow from distant city lights. The contrast between the bright fire and surrounding darkness is extreme. The drone camera captures the dynamic lighting and slight motion of flames and smoke.",
+  "video_path": "seed_videos_prepped/wildfire_smoke_rising.mp4",
+  "output_dir": "outputs/wildfire_smoke_rising/night_fire",
+  "guidance": 3,
+  "edge": {
+    "control_weight": 0.5
+  },
+  "depth": {
+    "control_weight": 0.5
+  }
+}
