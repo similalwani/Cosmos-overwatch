@@ -78,11 +78,11 @@ Cosmos-Transfer2.5-2B official inference times (single GPU, segmentation-control
 │   ├── config.py               # Shared constants (sequences, frame rate, paths)
 │   ├── dataset_prep.py         # VisDrone + fire video prep and annotation
 │   ├── generate_specs.py       # Generate 48 inference spec JSONs
-│   ├── validate_lambda.py      # Pre-flight validation before cloud inference
+│   ├── validate_inputs.py      # Pre-flight validation before cloud inference
 │   ├── inference_runner.py     # Inference orchestrator (invokes Cosmos CLI)
 │   ├── validate_outputs.py     # Post-inference QC (black frames, static, corrupt)
 │   ├── quality_metrics.py      # CLIP / LPIPS / SSIM metrics per clip
-│   ├── setup_lambda.sh         # One-shot cloud instance setup
+│   ├── setup_cloud.sh         # One-shot cloud instance setup
 │   └── requirements.txt        # Python deps for this repo
 ├── seed_videos_prepped/
 │   ├── *.mp4                   # 13 seed videos (gitignored)
@@ -102,7 +102,7 @@ Cosmos-Transfer2.5-2B official inference times (single GPU, segmentation-control
 ### 1. Validate locally (Mac)
 
 ```bash
-python3 scripts/validate_lambda.py
+python3 scripts/validate_inputs.py
 # Expected: ✓ ALL CHECKS PASSED
 ```
 
@@ -115,7 +115,7 @@ rsync -avz seed_videos_prepped/ configs/ scripts/ \
 
 # On the instance — install everything (~10–15 min, one-time)
 export HF_TOKEN=hf_xxx    # Must have accepted NVIDIA Cosmos-Transfer2.5 license
-bash scripts/setup_lambda.sh
+bash scripts/setup_cloud.sh
 ```
 
 ### 3. Run inference
@@ -167,7 +167,7 @@ Open [`review.html`](review.html) in a browser for a side-by-side seed vs. outpu
 | HuggingFace 401 / weight download fails | Accept license at [huggingface.co/nvidia/Cosmos-Transfer2.5-2B](https://huggingface.co/nvidia/Cosmos-Transfer2.5-2B), then `hf auth login` |
 | `CUDA out of memory` | One spec at a time only; use `--resume` if interrupted |
 | `ffprobe not found` | `sudo apt-get install ffmpeg` |
-| `validate_lambda.py` reports absolute paths | Regenerate specs: `python3 scripts/generate_specs.py` |
+| `validate_inputs.py` reports absolute paths | Regenerate specs: `python3 scripts/generate_specs.py` |
 | Flash-attn version mismatch | Inside cosmos dir: `uv sync --extra=cu128 --reinstall` |
 
 ---

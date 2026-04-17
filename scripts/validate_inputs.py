@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-"""Pre-Lambda validation: check all inputs, specs, and readiness.
-Usage: python3 scripts/validate_lambda.py
+"""Pre-inference validation: check all inputs, specs, and readiness.
+Usage: python3 scripts/validate_inputs.py
 """
 import json
 import subprocess
@@ -146,7 +146,7 @@ def validate_specs():
 def print_summary():
     """Deployment readiness summary."""
     print("\n" + "="*60)
-    print("LAMBDA DEPLOYMENT READINESS")
+    print("DEPLOYMENT READINESS")
     print("="*60)
 
     all_names = SEQ_NAMES + FIRE_NAMES
@@ -186,7 +186,7 @@ def main():
 
     print("\n" + "="*60)
     if all(results.values()):
-        print("✓  ALL CHECKS PASSED — READY FOR LAMBDA")
+        print("✓  ALL CHECKS PASSED — READY FOR INFERENCE")
     else:
         print("⚠  ISSUES DETECTED")
         failed = [k for k, v in results.items() if not v]

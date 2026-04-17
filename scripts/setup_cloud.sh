@@ -1,13 +1,14 @@
 #!/usr/bin/env bash
-# One-shot setup for Cosmos Transfer2.5 on a Lambda A100-80GB instance.
-# Run once after uploading this repo to /workspace/cosmos_overwatch.
+# One-shot setup for Cosmos Transfer2.5 on a cloud GPU instance.
+# Tested on Lambda Labs A100-80GB; compatible with any Ubuntu 22.04 host
+# with CUDA 12.8+, driver >=570, and an 80GB GPU.
 #
 # Usage:
 #   export HF_TOKEN=hf_xxx   # HuggingFace read token (NVIDIA license required)
-#   bash scripts/setup_lambda.sh
+#   bash scripts/setup_cloud.sh
 #
-# Host requirements (satisfied by Lambda base image):
-#   CUDA 12.8+, driver >=570, Ubuntu 22.04, A100-80GB
+# Host requirements:
+#   CUDA 12.8+, driver >=570, Ubuntu 22.04, 80GB GPU VRAM
 #
 set -euo pipefail
 
@@ -17,7 +18,7 @@ THIS_REPO="${THIS_REPO:-$WORKSPACE/cosmos_overwatch}"
 CUDA_EXTRA="${CUDA_EXTRA:-cu128}"  # cu128 | cu130
 
 echo "=========================================="
-echo "Cosmos Transfer2.5 — Lambda setup"
+echo "Cosmos Transfer2.5 — Cloud setup"
 echo "=========================================="
 echo "Workspace:   $WORKSPACE"
 echo "Cosmos dir:  $COSMOS_DIR"
@@ -77,7 +78,7 @@ echo "=========================================="
 echo ""
 echo "Next steps:"
 echo "  1. cd $THIS_REPO"
-echo "  2. python3 scripts/validate_lambda.py"
+echo "  2. python3 scripts/validate_inputs.py"
 echo "  3. export COSMOS_DIR=$COSMOS_DIR"
 echo "  4. python3 scripts/inference_runner.py --spec-name uav0000288_00001_v_heavy_rain --dry-run"
 echo "     (drop --dry-run once happy)"
