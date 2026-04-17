@@ -49,18 +49,20 @@ def load_frames(video_path, n=SAMPLE_FRAMES):
 def compute_clip_score(frames, prompt, model, processor, device):
     """Mean CLIP cosine similarity between sampled frames and the condition prompt."""
     import torch
+    from PIL import Image
     texts = processor(text=[prompt], return_tensors="pt", truncation=True).to(device)
     with torch.no_grad():
-        text_features = model.get_text_features(**texts)
+        text_out = model.get_text_features(**texts)
+        text_features = text_out if isinstance(text_out, torch.Tensor) else text_out.pooler_output
         text_features = text_features / text_features.norm(dim=-1, keepdim=True)
 
     scores = []
     for frame in frames:
-        from PIL import Image
         img = Image.fromarray(frame)
         inputs = processor(images=img, return_tensors="pt").to(device)
         with torch.no_grad():
-            img_features = model.get_image_features(**inputs)
+            img_out = model.get_image_features(**inputs)
+            img_features = img_out if isinstance(img_out, torch.Tensor) else img_out.pooler_output
             img_features = img_features / img_features.norm(dim=-1, keepdim=True)
         scores.append((img_features @ text_features.T).item())
     return float(np.mean(scores))
@@ -98,6 +100,9 @@ def compute_ssim(seed_frames, out_frames):
 
 def load_models(device):
     """Load CLIP and LPIPS models."""
+    import ssl
+    ssl._create_default_https_context = ssl._create_unverified_context
+
     from transformers import CLIPModel, CLIPProcessor
     import lpips
 

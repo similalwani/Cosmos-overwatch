@@ -58,7 +58,7 @@ Cosmos-Transfer2.5-2B official inference times (single GPU, segmentation-control
 
 > Transfer2.5-2B is **3.5× smaller** than Cosmos-Transfer1 while delivering higher structural fidelity and robust long-horizon generation ([Cosmos paper](https://arxiv.org/abs/2511.00062)).
 
-**Overwatch quality metrics** (CLIP / LPIPS / SSIM across completed clips - run `quality_metrics.py` to reproduce):
+**Overwatch quality metrics** (CLIP / LPIPS / SSIM - run `quality_metrics.py` to reproduce):
 
 | Metric | Meaning | Target |
 |--------|---------|--------|
@@ -66,7 +66,16 @@ Cosmos-Transfer2.5-2B official inference times (single GPU, segmentation-control
 | LPIPS | Perceptual distance from seed | Higher = more domain shift applied |
 | SSIM | Structural similarity to seed | Higher = structure better preserved |
 
-> Full per-clip results in [`outputs/quality_metrics.json`](outputs/quality_metrics.json) after running `quality_metrics.py`.
+Results across available clips (CLIP / LPIPS / SSIM):
+
+| | CLIP | LPIPS | SSIM |
+|---|---|---|---|
+| Mean | 0.295 | 0.629 | 0.384 |
+| Std | 0.019 | 0.112 | 0.148 |
+
+Night-fire clips score high LPIPS (0.78-0.86) and low SSIM (0.02-0.04), reflecting maximum visual domain shift as expected.
+
+> Full per-clip results in [`outputs/quality_metrics.json`](outputs/quality_metrics.json).
 
 ---
 

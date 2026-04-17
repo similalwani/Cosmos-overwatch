@@ -1,0 +1,271 @@
+{
+  "n_clips": 32,
+  "mean": {
+    "clip_score": 0.2948,
+    "lpips": 0.6289,
+    "ssim": 0.3843
+  },
+  "std": {
+    "clip_score": 0.019,
+    "lpips": 0.1116,
+    "ssim": 0.1479
+  },
+  "per_clip": [
+    {
+      "spec": "farm_fire_south_africa_heavy_rain",
+      "seed": "/Users/similalwani/Downloads/Cosmos_overwatch/seed_videos_prepped/farm_fire_south_africa.mp4",
+      "output": "/Users/similalwani/Downloads/Cosmos_overwatch/outputs/farm_fire_south_africa/heavy_rain/farm_fire_south_africa.mp4",
+      "clip_score": 0.3171,
+      "lpips": 0.6236,
+      "ssim": 0.2169
+    },
+    {
+      "spec": "farm_fire_south_africa_night_fire",
+      "seed": "/Users/similalwani/Downloads/Cosmos_overwatch/seed_videos_prepped/farm_fire_south_africa.mp4",
+      "output": "/Users/similalwani/Downloads/Cosmos_overwatch/outputs/farm_fire_south_africa/night_fire/farm_fire_south_africa.mp4",
+      "clip_score": 0.3124,
+      "lpips": 0.8641,
+      "ssim": 0.0216
+    },
+    {
+      "spec": "farm_fire_south_africa_thermal",
+      "seed": "/Users/similalwani/Downloads/Cosmos_overwatch/seed_videos_prepped/farm_fire_south_africa.mp4",
+      "output": "/Users/similalwani/Downloads/Cosmos_overwatch/outputs/farm_fire_south_africa/thermal/farm_fire_south_africa.mp4",
+      "clip_score": 0.3597,
+      "lpips": 0.6836,
+      "ssim": 0.242
+    },
+    {
+      "spec": "forest_fire_dense_smoke_heavy_rain",
+      "seed": "/Users/similalwani/Downloads/Cosmos_overwatch/seed_videos_prepped/forest_fire_dense_smoke.mp4",
+      "output": "/Users/similalwani/Downloads/Cosmos_overwatch/outputs/forest_fire_dense_smoke/heavy_rain/forest_fire_dense_smoke.mp4",
+      "clip_score": 0.3145,
+      "lpips": 0.5827,
+      "ssim": 0.5515
+    },
+    {
+      "spec": "forest_fire_dense_smoke_night_fire",
+      "seed": "/Users/similalwani/Downloads/Cosmos_overwatch/seed_videos_prepped/forest_fire_dense_smoke.mp4",
+      "output": "/Users/similalwani/Downloads/Cosmos_overwatch/outputs/forest_fire_dense_smoke/night_fire/forest_fire_dense_smoke.mp4",
+      "clip_score": 0.3027,
+      "lpips": 0.8527,
+      "ssim": 0.0266
+    },
+    {
+      "spec": "forest_fire_dense_smoke_thermal",
+      "seed": "/Users/similalwani/Downloads/Cosmos_overwatch/seed_videos_prepped/forest_fire_dense_smoke.mp4",
+      "output": "/Users/similalwani/Downloads/Cosmos_overwatch/outputs/forest_fire_dense_smoke/thermal/forest_fire_dense_smoke.mp4",
+      "clip_score": 0.3219,
+      "lpips": 0.7339,
+      "ssim": 0.4215
+    },
+    {
+      "spec": "structure_fire_buildings_heavy_rain",
+      "seed": "/Users/similalwani/Downloads/Cosmos_overwatch/seed_videos_prepped/structure_fire_buildings.mp4",
+      "output": "/Users/similalwani/Downloads/Cosmos_overwatch/outputs/structure_fire_buildings/heavy_rain/structure_fire_buildings.mp4",
+      "clip_score": 0.3109,
+      "lpips": 0.5444,
+      "ssim": 0.6837
+    },
+    {
+      "spec": "structure_fire_buildings_night_fire",
+      "seed": "/Users/similalwani/Downloads/Cosmos_overwatch/seed_videos_prepped/structure_fire_buildings.mp4",
+      "output": "/Users/similalwani/Downloads/Cosmos_overwatch/outputs/structure_fire_buildings/night_fire/structure_fire_buildings.mp4",
+      "clip_score": 0.2906,
+      "lpips": 0.7769,
+      "ssim": 0.0416
+    },
+    {
+      "spec": "structure_fire_buildings_thermal",
+      "seed": "/Users/similalwani/Downloads/Cosmos_overwatch/seed_videos_prepped/structure_fire_buildings.mp4",
+      "output": "/Users/similalwani/Downloads/Cosmos_overwatch/outputs/structure_fire_buildings/thermal/structure_fire_buildings.mp4",
+      "clip_score": 0.2858,
+      "lpips": 0.8001,
+      "ssim": 0.5516
+    },
+    {
+      "spec": "uav0000239_03720_v_dense_fog",
+      "seed": "/Users/similalwani/Downloads/Cosmos_overwatch/seed_videos_prepped/uav0000239_03720_v.mp4",
+      "output": "/Users/similalwani/Downloads/Cosmos_overwatch/outputs/uav0000239_03720_v/dense_fog/uav0000239_03720_v.mp4",
+      "clip_score": 0.2792,
+      "lpips": 0.6145,
+      "ssim": 0.4472
+    },
+    {
+      "spec": "uav0000239_03720_v_dusk_golden",
+      "seed": "/Users/similalwani/Downloads/Cosmos_overwatch/seed_videos_prepped/uav0000239_03720_v.mp4",
+      "output": "/Users/similalwani/Downloads/Cosmos_overwatch/outputs/uav0000239_03720_v/dusk_golden/uav0000239_03720_v.mp4",
+      "clip_score": 0.2904,
+      "lpips": 0.7007,
+      "ssim": 0.3063
+    },
+    {
+      "spec": "uav0000239_03720_v_heavy_rain",
+      "seed": "/Users/similalwani/Downloads/Cosmos_overwatch/seed_videos_prepped/uav0000239_03720_v.mp4",
+      "output": "/Users/similalwani/Downloads/Cosmos_overwatch/outputs/uav0000239_03720_v/heavy_rain/uav0000239_03720_v.mp4",
+      "clip_score": 0.2865,
+      "lpips": 0.4771,
+      "ssim": 0.4748
+    },
+    {
+      "spec": "uav0000239_03720_v_thermal",
+      "seed": "/Users/similalwani/Downloads/Cosmos_overwatch/seed_videos_prepped/uav0000239_03720_v.mp4",
+      "output": "/Users/similalwani/Downloads/Cosmos_overwatch/outputs/uav0000239_03720_v/thermal/uav0000239_03720_v.mp4",
+      "clip_score": 0.2823,
+      "lpips": 0.6715,
+      "ssim": 0.4148
+    },
+    {
+      "spec": "uav0000244_01440_v_dense_fog",
+      "seed": "/Users/similalwani/Downloads/Cosmos_overwatch/seed_videos_prepped/uav0000244_01440_v.mp4",
+      "output": "/Users/similalwani/Downloads/Cosmos_overwatch/outputs/uav0000244_01440_v/dense_fog/uav0000244_01440_v.mp4",
+      "clip_score": 0.2964,
+      "lpips": 0.4941,
+      "ssim": 0.5014
+    },
+    {
+      "spec": "uav0000244_01440_v_dusk_golden",
+      "seed": "/Users/similalwani/Downloads/Cosmos_overwatch/seed_videos_prepped/uav0000244_01440_v.mp4",
+      "output": "/Users/similalwani/Downloads/Cosmos_overwatch/outputs/uav0000244_01440_v/dusk_golden/uav0000244_01440_v.mp4",
+      "clip_score": 0.2927,
+      "lpips": 0.6355,
+      "ssim": 0.3535
+    },
+    {
+      "spec": "uav0000244_01440_v_heavy_rain",
+      "seed": "/Users/similalwani/Downloads/Cosmos_overwatch/seed_videos_prepped/uav0000244_01440_v.mp4",
+      "output": "/Users/similalwani/Downloads/Cosmos_overwatch/outputs/uav0000244_01440_v/heavy_rain/uav0000244_01440_v.mp4",
+      "clip_score": 0.3147,
+      "lpips": 0.4422,
+      "ssim": 0.4722
+    },
+    {
+      "spec": "uav0000244_01440_v_thermal",
+      "seed": "/Users/similalwani/Downloads/Cosmos_overwatch/seed_videos_prepped/uav0000244_01440_v.mp4",
+      "output": "/Users/similalwani/Downloads/Cosmos_overwatch/outputs/uav0000244_01440_v/thermal/uav0000244_01440_v.mp4",
+      "clip_score": 0.2846,
+      "lpips": 0.6356,
+      "ssim": 0.4583
+    },
+    {
+      "spec": "uav0000248_00001_v_dense_fog",
+      "seed": "/Users/similalwani/Downloads/Cosmos_overwatch/seed_videos_prepped/uav0000248_00001_v.mp4",
+      "output": "/Users/similalwani/Downloads/Cosmos_overwatch/outputs/uav0000248_00001_v/dense_fog/uav0000248_00001_v.mp4",
+      "clip_score": 0.286,
+      "lpips": 0.7243,
+      "ssim": 0.3989
+    },
+    {
+      "spec": "uav0000248_00001_v_dusk_golden",
+      "seed": "/Users/similalwani/Downloads/Cosmos_overwatch/seed_videos_prepped/uav0000248_00001_v.mp4",
+      "output": "/Users/similalwani/Downloads/Cosmos_overwatch/outputs/uav0000248_00001_v/dusk_golden/uav0000248_00001_v.mp4",
+      "clip_score": 0.3073,
+      "lpips": 0.7193,
+      "ssim": 0.2689
+    },
+    {
+      "spec": "uav0000248_00001_v_heavy_rain",
+      "seed": "/Users/similalwani/Downloads/Cosmos_overwatch/seed_videos_prepped/uav0000248_00001_v.mp4",
+      "output": "/Users/similalwani/Downloads/Cosmos_overwatch/outputs/uav0000248_00001_v/heavy_rain/uav0000248_00001_v.mp4",
+      "clip_score": 0.2786,
+      "lpips": 0.488,
+      "ssim": 0.4027
+    },
+    {
+      "spec": "uav0000248_00001_v_thermal",
+      "seed": "/Users/similalwani/Downloads/Cosmos_overwatch/seed_videos_prepped/uav0000248_00001_v.mp4",
+      "output": "/Users/similalwani/Downloads/Cosmos_overwatch/outputs/uav0000248_00001_v/thermal/uav0000248_00001_v.mp4",
+      "clip_score": 0.3024,
+      "lpips": 0.6292,
+      "ssim": 0.3554
+    },
+    {
+      "spec": "uav0000278_00001_v_dense_fog",
+      "seed": "/Users/similalwani/Downloads/Cosmos_overwatch/seed_videos_prepped/uav0000278_00001_v.mp4",
+      "output": "/Users/similalwani/Downloads/Cosmos_overwatch/outputs/uav0000278_00001_v/dense_fog/uav0000278_00001_v.mp4",
+      "clip_score": 0.2635,
+      "lpips": 0.5314,
+      "ssim": 0.5069
+    },
+    {
+      "spec": "uav0000278_00001_v_dusk_golden",
+      "seed": "/Users/similalwani/Downloads/Cosmos_overwatch/seed_videos_prepped/uav0000278_00001_v.mp4",
+      "output": "/Users/similalwani/Downloads/Cosmos_overwatch/outputs/uav0000278_00001_v/dusk_golden/uav0000278_00001_v.mp4",
+      "clip_score": 0.2892,
+      "lpips": 0.6068,
+      "ssim": 0.355
+    },
+    {
+      "spec": "uav0000278_00001_v_heavy_rain",
+      "seed": "/Users/similalwani/Downloads/Cosmos_overwatch/seed_videos_prepped/uav0000278_00001_v.mp4",
+      "output": "/Users/similalwani/Downloads/Cosmos_overwatch/outputs/uav0000278_00001_v/heavy_rain/uav0000278_00001_v.mp4",
+      "clip_score": 0.2677,
+      "lpips": 0.427,
+      "ssim": 0.5201
+    },
+    {
+      "spec": "uav0000278_00001_v_thermal",
+      "seed": "/Users/similalwani/Downloads/Cosmos_overwatch/seed_videos_prepped/uav0000278_00001_v.mp4",
+      "output": "/Users/similalwani/Downloads/Cosmos_overwatch/outputs/uav0000278_00001_v/thermal/uav0000278_00001_v.mp4",
+      "clip_score": 0.2961,
+      "lpips": 0.6189,
+      "ssim": 0.4329
+    },
+    {
+      "spec": "uav0000288_00001_v_dense_fog",
+      "seed": "/Users/similalwani/Downloads/Cosmos_overwatch/seed_videos_prepped/uav0000288_00001_v.mp4",
+      "output": "/Users/similalwani/Downloads/Cosmos_overwatch/outputs/uav0000288_00001_v/dense_fog/uav0000288_00001_v.mp4",
+      "clip_score": 0.2822,
+      "lpips": 0.6051,
+      "ssim": 0.488
+    },
+    {
+      "spec": "uav0000288_00001_v_dusk_golden",
+      "seed": "/Users/similalwani/Downloads/Cosmos_overwatch/seed_videos_prepped/uav0000288_00001_v.mp4",
+      "output": "/Users/similalwani/Downloads/Cosmos_overwatch/outputs/uav0000288_00001_v/dusk_golden/uav0000288_00001_v.mp4",
+      "clip_score": 0.3095,
+      "lpips": 0.6878,
+      "ssim": 0.3472
+    },
+    {
+      "spec": "uav0000288_00001_v_heavy_rain",
+      "seed": "/Users/similalwani/Downloads/Cosmos_overwatch/seed_videos_prepped/uav0000288_00001_v.mp4",
+      "output": "/Users/similalwani/Downloads/Cosmos_overwatch/outputs/uav0000288_00001_v/heavy_rain/uav0000288_00001_v.mp4",
+      "clip_score": 0.2908,
+      "lpips": 0.5394,
+      "ssim": 0.3921
+    },
+    {
+      "spec": "uav0000288_00001_v_thermal",
+      "seed": "/Users/similalwani/Downloads/Cosmos_overwatch/seed_videos_prepped/uav0000288_00001_v.mp4",
+      "output": "/Users/similalwani/Downloads/Cosmos_overwatch/outputs/uav0000288_00001_v/thermal/uav0000288_00001_v.mp4",
+      "clip_score": 0.284,
+      "lpips": 0.6116,
+      "ssim": 0.4264
+    },
+    {
+      "spec": "uav0000307_00000_v_dense_fog",
+      "seed": "/Users/similalwani/Downloads/Cosmos_overwatch/seed_videos_prepped/uav0000307_00000_v.mp4",
+      "output": "/Users/similalwani/Downloads/Cosmos_overwatch/outputs/uav0000307_00000_v/dense_fog/uav0000307_00000_v.mp4",
+      "clip_score": 0.2804,
+      "lpips": 0.6185,
+      "ssim": 0.4339
+    },
+    {
+      "spec": "uav0000307_00000_v_dusk_golden",
+      "seed": "/Users/similalwani/Downloads/Cosmos_overwatch/seed_videos_prepped/uav0000307_00000_v.mp4",
+      "output": "/Users/similalwani/Downloads/Cosmos_overwatch/outputs/uav0000307_00000_v/dusk_golden/uav0000307_00000_v.mp4",
+      "clip_score": 0.2901,
+      "lpips": 0.7185,
+      "ssim": 0.3115
+    },
+    {
+      "spec": "uav0000307_00000_v_heavy_rain",
+      "seed": "/Users/similalwani/Downloads/Cosmos_overwatch/seed_videos_prepped/uav0000307_00000_v.mp4",
+      "output": "/Users/similalwani/Downloads/Cosmos_overwatch/outputs/uav0000307_00000_v/heavy_rain/uav0000307_00000_v.mp4",
+      "clip_score": 0.2643,
+      "lpips": 0.4654,
+      "ssim": 0.4725
+    }
+  ]
+}
