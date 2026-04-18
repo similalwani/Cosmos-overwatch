@@ -7,14 +7,16 @@ fire_raw/
 # Seed videos - committed directly (all < 10MB)
 # seed_videos_prepped/*.mp4
 
-# Generated outputs - keep main MP4s, exclude logs/configs/temp files
+# Generated outputs - keep MP4s and annotations.txt, exclude everything else
 outputs/**/*.log
 outputs/**/*.yaml
-outputs/**/*.txt
 outputs/**/tmp*.json
 outputs/**/config.yaml
 outputs/**/debug.log
 outputs/**/console.log
+outputs/inference_log.txt
+outputs/**/*.txt
+!outputs/**/annotations.txt
 
 # Inference checkpoints and temp files
 .inference_checkpoint
