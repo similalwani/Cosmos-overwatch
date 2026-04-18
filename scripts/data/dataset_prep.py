@@ -13,9 +13,12 @@ Usage:
   python dataset_prep.py                 # both sources
   python dataset_prep.py --sources visdrone fire
 """
+import sys
 import subprocess
 import argparse
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).parent.parent))
 from config import (
     SEQ_NAMES, FIRE_NAMES, SEQ_DIR, ANN_DIR, FIRE_RAW_DIR,
     PREP_DIR, OUTPUT_FRAMES, SRC_FPS, DST_FPS, DURATION_SEC

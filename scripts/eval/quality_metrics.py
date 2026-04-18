@@ -13,6 +13,7 @@ Usage:
   python3 scripts/quality_metrics.py
   python3 scripts/quality_metrics.py --output-dir outputs --specs-dir configs/specs
 """
+import sys
 import json
 import argparse
 import warnings
@@ -22,7 +23,7 @@ import numpy as np
 
 warnings.filterwarnings("ignore")
 
-BASE = Path(__file__).parent.parent
+BASE = Path(__file__).parent.parent.parent
 OUTPUTS_DIR = BASE / "outputs"
 SPECS_DIR = BASE / "configs" / "specs"
 

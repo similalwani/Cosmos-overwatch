@@ -4,8 +4,11 @@
 Output: configs/specs/<stem>_<shift>.json
 Usage:  python scripts/generate_specs.py
 """
+import sys
 import json
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).parent.parent))
 from config import SEQ_NAMES, FIRE_NAMES, PREP_DIR
 
 SPECS_DIR = PREP_DIR.parent / "configs" / "specs"

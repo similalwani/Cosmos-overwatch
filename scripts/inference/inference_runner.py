@@ -25,7 +25,7 @@ import tempfile
 from pathlib import Path
 from datetime import datetime
 
-BASE = Path(__file__).parent.parent.resolve()
+BASE = Path(__file__).parent.parent.parent.resolve()
 SPECS_DIR = BASE / "configs" / "specs"
 OUTPUTS_DIR = BASE / "outputs"
 LOG_FILE = OUTPUTS_DIR / "inference_log.txt"

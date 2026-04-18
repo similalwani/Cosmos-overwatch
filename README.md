@@ -85,14 +85,17 @@ Night-fire clips score high LPIPS (0.78-0.86) and low SSIM (0.02-0.04), reflecti
 .
 ├── scripts/
 │   ├── config.py               # Shared constants (sequences, frame rate, paths)
-│   ├── dataset_prep.py         # VisDrone + fire video prep and annotation
-│   ├── generate_specs.py       # Generate 48 inference spec JSONs
-│   ├── validate_inputs.py      # Pre-flight validation before cloud inference
-│   ├── inference_runner.py     # Inference orchestrator (invokes Cosmos CLI)
-│   ├── validate_outputs.py     # Post-inference QC (black frames, static, corrupt)
-│   ├── quality_metrics.py      # CLIP / LPIPS / SSIM metrics per clip
-│   ├── setup_cloud.sh         # One-shot cloud instance setup
-│   └── requirements.txt        # Python deps for this repo
+│   ├── requirements.txt        # Python dependencies
+│   ├── data/
+│   │   ├── dataset_prep.py     # VisDrone + fire video prep and annotation
+│   │   └── generate_specs.py   # Generate 48 inference spec JSONs
+│   ├── inference/
+│   │   ├── inference_runner.py # Inference orchestrator (invokes Cosmos CLI)
+│   │   └── setup_cloud.sh      # One-shot cloud instance setup
+│   └── eval/
+│       ├── validate_inputs.py  # Pre-flight validation before cloud inference
+│       ├── validate_outputs.py # Post-inference QC (black frames, static, corrupt)
+│       └── quality_metrics.py  # CLIP / LPIPS / SSIM metrics per clip
 ├── seed_videos_prepped/
 │   ├── *.mp4                   # 13 seed videos (gitignored)
 │   └── annotations/*.txt       # VisDrone-format ground truth
@@ -111,7 +114,7 @@ Night-fire clips score high LPIPS (0.78-0.86) and low SSIM (0.02-0.04), reflecti
 ### 1. Validate locally (Mac)
 
 ```bash
-python3 scripts/validate_inputs.py
+python3 scripts/eval/validate_inputs.py
 # Expected: ✓ ALL CHECKS PASSED
 ```
 
@@ -124,7 +127,7 @@ rsync -avz seed_videos_prepped/ configs/ scripts/ \
 
 # On the instance - install everything (~10-15 min, one-time)
 export HF_TOKEN=hf_xxx    # Must have accepted NVIDIA Cosmos-Transfer2.5 license
-bash scripts/setup_cloud.sh
+bash scripts/inference/setup_cloud.sh
 ```
 
 ### 3. Run inference
@@ -133,24 +136,24 @@ bash scripts/setup_cloud.sh
 export COSMOS_DIR=/workspace/cosmos-transfer2.5
 
 # Smoke test (single clip, ~8 min)
-python3 scripts/inference_runner.py --spec-name uav0000288_00001_v_heavy_rain
+python3 scripts/inference/inference_runner.py --spec-name uav0000288_00001_v_heavy_rain
 
 # Full batch (48 clips, ~6-7 hr on A100-80GB)
-python3 scripts/inference_runner.py
+python3 scripts/inference/inference_runner.py
 
 # Resume after interruption
-python3 scripts/inference_runner.py --resume
+python3 scripts/inference/inference_runner.py --resume
 ```
 
 ### 4. Evaluate outputs
 
 ```bash
 # Post-inference QC (black frames, static video, file corruption)
-python3 scripts/validate_outputs.py --output-dir outputs
+python3 scripts/eval/validate_outputs.py --output-dir outputs
 
 # Quality metrics (CLIP / LPIPS / SSIM) - run on Mac after rsync pull
 pip install torch torchvision transformers lpips scikit-image opencv-python pillow
-python3 scripts/quality_metrics.py
+python3 scripts/eval/quality_metrics.py
 ```
 
 ### 5. Review visually

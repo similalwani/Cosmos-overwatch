@@ -2,12 +2,15 @@
 """Pre-inference validation: check all inputs, specs, and readiness.
 Usage: python3 scripts/validate_inputs.py
 """
+import sys
 import json
 import subprocess
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).parent.parent))
 from config import SEQ_NAMES, FIRE_NAMES, PREP_DIR, OUTPUT_FRAMES, DST_FPS, DURATION_SEC
 
-BASE = Path(__file__).parent.parent
+BASE = Path(__file__).parent.parent.parent
 SPECS_DIR = BASE / "configs" / "specs"
 
 
