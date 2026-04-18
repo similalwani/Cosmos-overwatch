@@ -1,8 +1,11 @@
 #!/usr/bin/env python3
-"""Generate Cosmos Transfer2.5 inference specs (seed video × domain shift).
+"""
+Generate Cosmos Transfer2.5 inference specs (one JSON per seed x condition).
 
-Output: configs/specs/<stem>_<shift>.json
-Usage:  python scripts/generate_specs.py
+  python scripts/data/generate_specs.py
+
+Outputs to configs/specs/. Paths stored relative to repo root so the same
+specs work locally and on the cloud GPU.
 """
 import sys
 import json
@@ -84,77 +87,48 @@ FIRE_SHIFTS = {
 }
 
 
-def generate_specs():
-    """Generate all 48 specs: VisDrone (9×4) + Fire (4×3).
-
-    Paths are stored relative to repo root so the same specs work on Mac
-    (validation) and Lambda (inference). inference_runner.py resolves them
-    at run time.
-    """
-    specs_created = 0
-
-    for name in SEQ_NAMES:
-        vid_path = PREP_DIR / f"{name}.mp4"
-        if not vid_path.exists():
-            print(f"  WARNING: missing {name}.mp4")
-            continue
-
-        rel_video = f"seed_videos_prepped/{name}.mp4"
-
-        for shift, prompt in VISDRONE_SHIFTS.items():
-            spec = {
-                "prompt": prompt,
-                "video_path": rel_video,
-                "output_dir": f"outputs/{name}/{shift}",
-                "guidance": 3,
-                "edge": {"control_weight": 0.5},
-                "depth": {"control_weight": 0.5},
-            }
-            spec_path = SPECS_DIR / f"{name}_{shift}.json"
-            with open(spec_path, "w") as f:
-                json.dump(spec, f, indent=2)
-            specs_created += 1
-
-    for name in FIRE_NAMES:
-        vid_path = PREP_DIR / f"{name}.mp4"
-        if not vid_path.exists():
-            print(f"  WARNING: missing {name}.mp4")
-            continue
-
-        rel_video = f"seed_videos_prepped/{name}.mp4"
-
-        for shift, prompt in FIRE_SHIFTS.items():
-            spec = {
-                "prompt": prompt,
-                "video_path": rel_video,
-                "output_dir": f"outputs/{name}/{shift}",
-                "guidance": 3,
-                "edge": {"control_weight": 0.5},
-                "depth": {"control_weight": 0.5},
-            }
-            spec_path = SPECS_DIR / f"{name}_{shift}.json"
-            with open(spec_path, "w") as f:
-                json.dump(spec, f, indent=2)
-            specs_created += 1
-
-    return specs_created
+def make_spec(name, shift, prompt, is_fire=False):
+    shifts = FIRE_SHIFTS if is_fire else VISDRONE_SHIFTS
+    return {
+        "prompt": shifts[shift],
+        "video_path": f"seed_videos_prepped/{name}.mp4",
+        "output_dir": f"outputs/{name}/{shift}",
+        "guidance": 3,
+        "edge": {"control_weight": 0.5},
+        "depth": {"control_weight": 0.5},
+    }
 
 
 def main():
-    print("\n" + "="*60)
+    print("\n" + "=" * 60)
     print("GENERATE INFERENCE SPECS")
-    print("="*60)
+    print("=" * 60)
 
-    specs_created = generate_specs()
+    count = 0
+    for name in SEQ_NAMES:
+        if not (PREP_DIR / f"{name}.mp4").exists():
+            print(f"  WARNING: missing {name}.mp4")
+            continue
+        for shift in VISDRONE_SHIFTS:
+            spec = make_spec(name, shift, VISDRONE_SHIFTS[shift])
+            (SPECS_DIR / f"{name}_{shift}.json").write_text(json.dumps(spec, indent=2))
+            count += 1
+
+    for name in FIRE_NAMES:
+        if not (PREP_DIR / f"{name}.mp4").exists():
+            print(f"  WARNING: missing {name}.mp4")
+            continue
+        for shift in FIRE_SHIFTS:
+            spec = make_spec(name, shift, FIRE_SHIFTS[shift], is_fire=True)
+            (SPECS_DIR / f"{name}_{shift}.json").write_text(json.dumps(spec, indent=2))
+            count += 1
 
     spec_files = sorted(SPECS_DIR.glob("*.json"))
-    print(f"\n✓  Created {specs_created} specs")
-    print(f"Location: {SPECS_DIR}/")
-    print(f"\nSample specs:")
+    print(f"\n✓  {count} specs written to {SPECS_DIR}/")
     for f in spec_files[:5]:
-        print(f"  - {f.name}")
+        print(f"   {f.name}")
     if len(spec_files) > 5:
-        print(f"  ... and {len(spec_files) - 5} more")
+        print(f"   ... and {len(spec_files) - 5} more")
 
 
 if __name__ == "__main__":

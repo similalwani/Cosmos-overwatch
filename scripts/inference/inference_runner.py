@@ -1,21 +1,17 @@
 #!/usr/bin/env python3
-"""Cosmos Transfer2.5 inference runner.
+"""
+Cosmos Transfer2.5 inference runner.
 
-Loads each spec, resolves paths, writes a Cosmos-compatible JSON to a temp
-file, then invokes the Cosmos Transfer2.5 CLI. Logs timings and supports
-checkpoint-based resume.
-
-Usage (on cloud GPU, after setup_cloud.sh):
-  python3 inference_runner.py                     # run all specs
-  python3 inference_runner.py --spec-name <name>  # single spec
-  python3 inference_runner.py --resume            # resume from checkpoint
-  python3 inference_runner.py --list              # list available specs
-  python3 inference_runner.py --dry-run           # print commands only
+  python3 scripts/inference/inference_runner.py                        # all specs
+  python3 scripts/inference/inference_runner.py --spec-name <name>     # single spec
+  python3 scripts/inference/inference_runner.py --resume               # resume from checkpoint
+  python3 scripts/inference/inference_runner.py --list                 # list specs
+  python3 scripts/inference/inference_runner.py --dry-run              # print commands only
 
 Requires:
-  - cosmos-transfer2.5 cloned at $COSMOS_DIR (default: /workspace/cosmos-transfer2.5)
-  - `uv sync --extra=cu128` completed inside that repo
-  - HuggingFace login with access to nvidia/Cosmos-Transfer2.5-2B
+  export COSMOS_DIR=/workspace/cosmos-transfer2.5
+  uv sync --extra=cu128  (run inside COSMOS_DIR)
+  hf auth login          (nvidia/Cosmos-Transfer2.5-2B license accepted)
 """
 import json
 import os
@@ -35,203 +31,144 @@ COSMOS_DIR = Path(os.environ.get("COSMOS_DIR", "/workspace/cosmos-transfer2.5"))
 COSMOS_INFERENCE = COSMOS_DIR / "examples" / "inference.py"
 
 
-def get_available_specs():
-    specs = sorted(SPECS_DIR.glob("*.json"))
-    return {f.stem: f for f in specs}
+def get_specs():
+    return {f.stem: f for f in sorted(SPECS_DIR.glob("*.json"))}
 
 
-def load_spec(spec_path):
-    with open(spec_path) as f:
-        spec = json.load(f)
-    required = ["prompt", "video_path", "output_dir", "guidance", "edge", "depth"]
-    for key in required:
+def load_spec(path):
+    spec = json.loads(Path(path).read_text())
+    for key in ["prompt", "video_path", "output_dir", "guidance", "edge", "depth"]:
         if key not in spec:
-            raise ValueError(f"Missing required key: {key}")
+            raise ValueError(f"missing key in spec: {key}")
     return spec
 
 
 def resolve_spec(spec):
-    """Resolve relative paths in spec to absolute paths; create output dir."""
-    resolved = dict(spec)
     vid = Path(spec["video_path"])
     if not vid.is_absolute():
         vid = (BASE / vid).resolve()
     if not vid.exists():
-        raise FileNotFoundError(f"Video not found: {vid}")
-    resolved["video_path"] = str(vid)
+        raise FileNotFoundError(f"video not found: {vid}")
 
     out = Path(spec["output_dir"])
     if not out.is_absolute():
         out = (BASE / out).resolve()
     out.mkdir(parents=True, exist_ok=True)
-    resolved["output_dir"] = str(out)
-    return resolved, out
+
+    return {**spec, "video_path": str(vid), "output_dir": str(out)}, out
 
 
-def run_cosmos_inference(resolved_spec, output_dir, dry_run=False):
-    """Write resolved spec to temp file and invoke the Cosmos CLI."""
+def run_inference(spec, output_dir, dry_run=False):
     if not dry_run and not COSMOS_INFERENCE.exists():
         raise FileNotFoundError(
-            f"Cosmos inference script not found at {COSMOS_INFERENCE}. "
-            f"Set $COSMOS_DIR or re-run setup_cloud.sh."
+            f"Cosmos not found at {COSMOS_INFERENCE} - set $COSMOS_DIR or re-run setup_cloud.sh"
         )
 
-    # Cosmos CLI accepts a subset of fields; output_dir is a CLI flag, not JSON.
     cosmos_json = {
-        "prompt": resolved_spec["prompt"],
-        "video_path": resolved_spec["video_path"],
-        "guidance": resolved_spec.get("guidance", 3),
+        "prompt": spec["prompt"],
+        "video_path": spec["video_path"],
+        "guidance": spec.get("guidance", 3),
+        "name": Path(spec["video_path"]).stem,
     }
-    if "edge" in resolved_spec:
-        cosmos_json["edge"] = resolved_spec["edge"]
-    if "depth" in resolved_spec:
-        cosmos_json["depth"] = resolved_spec["depth"]
-    cosmos_json["name"] = Path(resolved_spec["video_path"]).stem
+    for key in ("edge", "depth"):
+        if key in spec:
+            cosmos_json[key] = spec[key]
 
-    with tempfile.NamedTemporaryFile(
-        mode="w", suffix=".json", delete=False, dir=output_dir
-    ) as tf:
+    with tempfile.NamedTemporaryFile(mode="w", suffix=".json", delete=False, dir=output_dir) as tf:
         json.dump(cosmos_json, tf, indent=2)
-        temp_spec_path = tf.name
+        tmp = tf.name
 
     venv_python = COSMOS_DIR / ".venv" / "bin" / "python"
-    cmd = [
-        str(venv_python), str(COSMOS_INFERENCE),
-        "-i", temp_spec_path,
-        "-o", str(output_dir),
-        "--guidance", "5",
-    ]
-
+    cmd = [str(venv_python), str(COSMOS_INFERENCE), "-i", tmp, "-o", str(output_dir), "--guidance", "5"]
     print(f"  CMD: {' '.join(cmd)}")
 
     if dry_run:
-        return {"status": "dry_run", "cmd": cmd}
+        return {"status": "dry_run"}
 
-    start = datetime.now()
+    t0 = datetime.now()
     result = subprocess.run(cmd, cwd=str(COSMOS_DIR))
-    elapsed = (datetime.now() - start).total_seconds()
+    elapsed = (datetime.now() - t0).total_seconds()
 
     if result.returncode != 0:
         return {"status": "failed", "returncode": result.returncode, "elapsed_s": elapsed}
     return {"status": "ok", "elapsed_s": elapsed}
 
 
-def validate_output(output_dir):
-    """Check that at least one non-trivial MP4 was produced."""
-    output_dir = Path(output_dir)
-    mp4s = list(output_dir.glob("*.mp4"))
+def check_output(output_dir):
+    mp4s = list(Path(output_dir).glob("*.mp4"))
     if not mp4s:
-        return {"valid": False, "reason": "no mp4 output produced"}
-    total_size = sum(p.stat().st_size for p in mp4s)
-    if total_size < 10_000:
-        return {"valid": False, "reason": f"output too small ({total_size}B)"}
-    return {
-        "valid": True,
-        "mp4_count": len(mp4s),
-        "total_size_mb": round(total_size / 1e6, 2),
-    }
+        return False, "no mp4 produced"
+    total = sum(p.stat().st_size for p in mp4s)
+    if total < 10_000:
+        return False, f"output too small ({total}B)"
+    return True, f"{len(mp4s)} mp4s, {total/1e6:.1f} MB"
 
 
-def write_log(spec_name, result, validation):
+def log(spec_name, result, ok, msg):
     LOG_FILE.parent.mkdir(parents=True, exist_ok=True)
     with open(LOG_FILE, "a") as f:
         f.write(f"\n[{datetime.now().isoformat()}] {spec_name}\n")
-        f.write(f"  run:      {json.dumps(result)}\n")
-        f.write(f"  validate: {json.dumps(validation)}\n")
-
-
-def save_checkpoint(spec_name):
-    CHECKPOINT_FILE.parent.mkdir(parents=True, exist_ok=True)
-    CHECKPOINT_FILE.write_text(spec_name)
-
-
-def load_checkpoint():
-    if CHECKPOINT_FILE.exists():
-        return CHECKPOINT_FILE.read_text().strip()
-    return None
+        f.write(f"  run:    {json.dumps(result)}\n")
+        f.write(f"  output: ok={ok} {msg}\n")
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Cosmos Transfer2.5 inference runner")
-    parser.add_argument("--spec-name", help="Run single spec by name (no .json)")
-    parser.add_argument("--resume", action="store_true", help="Resume from last checkpoint")
-    parser.add_argument("--list", action="store_true", help="List available specs")
-    parser.add_argument("--dry-run", action="store_true", help="Print command, don't execute")
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--spec-name")
+    parser.add_argument("--resume", action="store_true")
+    parser.add_argument("--list", action="store_true")
+    parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
 
-    specs = get_available_specs()
+    specs = get_specs()
 
     if args.list:
-        print(f"\nAvailable specs ({len(specs)}):\n")
-        for name in sorted(specs.keys()):
+        print(f"\n{len(specs)} specs:\n")
+        for name in specs:
             print(f"  {name}")
-        return 0
+        return
 
     if args.spec_name:
         if args.spec_name not in specs:
-            print(f"ERROR: spec '{args.spec_name}' not found")
-            return 1
-        spec_names = [args.spec_name]
-    elif args.resume:
-        last = load_checkpoint()
-        if last and last in specs:
-            idx = list(specs.keys()).index(last)
-            spec_names = list(specs.keys())[idx + 1:]
-            if not spec_names:
-                print("No remaining specs - all done")
-                return 0
-            print(f"Resuming after {last} ({len(spec_names)} remaining)")
+            print(f"spec not found: {args.spec_name}")
+            return
+        to_run = [args.spec_name]
+    elif args.resume and CHECKPOINT_FILE.exists():
+        last = CHECKPOINT_FILE.read_text().strip()
+        all_names = list(specs)
+        if last in specs:
+            idx = all_names.index(last)
+            to_run = all_names[idx + 1:]
+            print(f"Resuming after {last} ({len(to_run)} remaining)")
         else:
-            spec_names = list(specs.keys())
-            print("No checkpoint, starting from beginning")
+            to_run = all_names
     else:
-        spec_names = list(specs.keys())
+        to_run = list(specs)
 
     print(f"\n{'='*60}")
-    print("COSMOS TRANSFER2.5 INFERENCE RUNNER")
+    print("COSMOS TRANSFER2.5 INFERENCE")
     print(f"{'='*60}")
-    print(f"Specs to process: {len(spec_names)}")
-    print(f"Cosmos dir:       {COSMOS_DIR}")
-    print(f"Output directory: {OUTPUTS_DIR}")
-    print(f"Log file:         {LOG_FILE}")
-    print(f"Dry run:          {args.dry_run}\n")
+    print(f"Specs:   {len(to_run)}")
+    print(f"Cosmos:  {COSMOS_DIR}")
+    print(f"Output:  {OUTPUTS_DIR}")
+    print(f"Dry run: {args.dry_run}\n")
 
-    passed = 0
-    failed = 0
-
-    for i, spec_name in enumerate(spec_names, 1):
-        print(f"\n[{i}/{len(spec_names)}] {spec_name}")
+    for i, name in enumerate(to_run, 1):
+        print(f"\n[{i}/{len(to_run)}] {name}")
         try:
-            spec = load_spec(specs[spec_name])
+            spec = load_spec(specs[name])
             resolved, out_dir = resolve_spec(spec)
-            result = run_cosmos_inference(resolved, out_dir, dry_run=args.dry_run)
-            validation = (
-                {"valid": True, "reason": "dry_run"}
-                if args.dry_run
-                else validate_output(out_dir)
-            )
-            write_log(spec_name, result, validation)
-            save_checkpoint(spec_name)
-
-            if validation["valid"]:
-                passed += 1
-                print(f"  ✓ PASSED  {result}")
-            else:
-                failed += 1
-                print(f"  ✗ FAILED  {validation['reason']}")
+            result = run_inference(resolved, out_dir, dry_run=args.dry_run)
+            ok, msg = (True, "dry_run") if args.dry_run else check_output(out_dir)
+            log(name, result, ok, msg)
+            CHECKPOINT_FILE.write_text(name)
+            print(f"  {'✓' if ok else '✗'}  {msg}")
         except Exception as e:
-            failed += 1
-            result = {"status": "error", "error": str(e)}
-            validation = {"valid": False, "reason": str(e)}
-            write_log(spec_name, result, validation)
-            print(f"  ✗ ERROR  {e}")
+            log(name, {"status": "error"}, False, str(e))
+            print(f"  ✗  {e}")
 
-    print(f"\n{'='*60}")
-    print(f"Passed: {passed}/{len(spec_names)}")
-    print(f"Failed: {failed}/{len(spec_names)}")
-    print(f"Log:    {LOG_FILE}\n")
-    return 0 if failed == 0 else 1
+    print(f"\nLog: {LOG_FILE}\n")
 
 
 if __name__ == "__main__":
-    exit(main())
+    main()
